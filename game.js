@@ -33,10 +33,19 @@ gameCaution.textContent = game.caution || "-";
 }
 
 function renderGameDetail(game) {
-  document.title = `${game.title}におすすめのPC｜GAME PC GUIDE`;
+  document.title = `${game.title}おすすめPC｜必要スペックと初心者向け構成`;
+
+const metaDescription = document.getElementById("metaDescription");
+
+if (metaDescription) {
+  metaDescription.setAttribute(
+    "content",
+    `${game.title}を快適に遊ぶためのおすすめゲーミングPC構成、必要スペック、予算目安を初心者向けにわかりやすく紹介します。`
+  );
+}
 
   gameGenre.textContent = `${game.genre} / ${game.level}`;
-  gameTitle.textContent = `${game.title}におすすめのPC`;
+  gameTitle.textContent = `${game.title}おすすめPC`;
   gameDescription.textContent = game.description;
 
   buildGrid.innerHTML = game.builds.map(build => `
