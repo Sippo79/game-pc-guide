@@ -762,6 +762,39 @@ a {
   line-height: 1.55;
 }
 
+.detail-related-sites {
+  margin-top: 32px;
+}
+
+.detail-related-sites .related-site-grid {
+  grid-template-columns: repeat(2, 1fr);
+  max-width: none;
+}
+
+.detail-related-sites .related-site-button {
+  border-radius: 26px;
+}
+
+.related-site-build {
+  background:
+    linear-gradient(
+      135deg,
+      rgba(25, 227, 255, 0.2),
+      rgba(123, 97, 255, 0.24)
+    );
+  border-color: rgba(25, 227, 255, 0.3);
+}
+
+.related-site-gpu {
+  background:
+    linear-gradient(
+      135deg,
+      rgba(47, 128, 255, 0.2),
+      rgba(123, 97, 255, 0.24)
+    );
+  border-color: rgba(77, 156, 255, 0.3);
+}
+
 @media (max-width: 900px) {
   .related-site-grid {
     grid-template-columns: 1fr;
