@@ -440,7 +440,24 @@ a {
 /* Game Detail */
 
 .game-detail-hero {
-  padding: 72px 0 0px;
+  padding: 44px 0 0;
+}
+
+.game-detail-hero > img {
+  display: block;
+  width: min(1200px, calc(100% - 32px));
+  max-height: 675px;
+  aspect-ratio: 16 / 9;
+  height: min(675px, calc(56.25vw - 18px));
+  margin: 0 auto 34px;
+  border-radius: 28px;
+  object-fit: cover;
+  object-position: center;
+  filter: brightness(0.72) saturate(1.05);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow:
+    0 24px 70px rgba(0, 0, 0, 0.34),
+    0 0 30px rgba(25, 227, 255, 0.08);
 }
 
 .back-link {
@@ -570,7 +587,14 @@ a {
   }
 
   .game-detail-hero {
-    padding: 52px 0 24px;
+    padding: 32px 0 24px;
+  }
+
+  .game-detail-hero > img {
+    width: calc(100% - 24px);
+    height: calc(56.25vw - 13.5px);
+    margin-bottom: 26px;
+    border-radius: 22px;
   }
 }
 /* Detail Info Cards */
@@ -700,6 +724,88 @@ a {
   margin: 0 0 16px;
   color: #cfd6e6;
 }
+
+/* Affiliate Links */
+
+.affiliate-section {
+  margin-top: 34px;
+  padding: 26px;
+  border-radius: 28px;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.085), rgba(255, 255, 255, 0.028));
+  border: 1px solid rgba(255, 255, 255, 0.11);
+  box-shadow: 0 22px 70px rgba(0, 0, 0, 0.24);
+}
+
+.affiliate-heading {
+  max-width: 760px;
+  margin-bottom: 20px;
+}
+
+.affiliate-heading h2 {
+  margin: 0 0 10px;
+  font-size: 28px;
+  letter-spacing: -0.03em;
+}
+
+.affiliate-heading p {
+  margin: 0;
+  color: #cfd6e6;
+  line-height: 1.8;
+}
+
+.affiliate-link-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 12px;
+}
+
+.affiliate-button {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 92px;
+  padding: 16px;
+  border-radius: 22px;
+  color: #ffffff;
+  background:
+    linear-gradient(
+      135deg,
+      rgba(25, 227, 255, 0.13),
+      rgba(123, 97, 255, 0.18)
+    );
+  border: 1px solid rgba(25, 227, 255, 0.18);
+  transition: 0.22s ease;
+}
+
+.affiliate-button:hover {
+  transform: translateY(-3px);
+  border-color: rgba(25, 227, 255, 0.42);
+  box-shadow:
+    0 18px 42px rgba(0, 0, 0, 0.28),
+    0 0 22px rgba(25, 227, 255, 0.08);
+}
+
+.affiliate-button span {
+  font-size: 15px;
+  font-weight: 900;
+  line-height: 1.45;
+}
+
+.affiliate-button small {
+  margin-top: 8px;
+  color: #cfd6e6;
+  font-size: 12px;
+  line-height: 1.55;
+}
+
+.affiliate-disclosure {
+  margin: 18px 0 0;
+  color: #8f9bb0;
+  font-size: 12px;
+  line-height: 1.8;
+}
+
 /* Related Sites */
 
 .related-sites-section {
@@ -796,6 +902,10 @@ a {
 }
 
 @media (max-width: 900px) {
+  .affiliate-link-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
   .related-site-grid {
     grid-template-columns: 1fr;
     gap: 16px;
@@ -806,5 +916,26 @@ a {
     min-height: auto;
     padding: 20px 22px;
     border-radius: 28px;
+  }
+}
+
+@media (max-width: 520px) {
+  .affiliate-section {
+    margin-top: 26px;
+    padding: 20px;
+    border-radius: 22px;
+  }
+
+  .affiliate-heading h2 {
+    font-size: 24px;
+  }
+
+  .affiliate-link-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .affiliate-button {
+    min-height: auto;
+    padding: 15px 16px;
   }
 }
