@@ -786,6 +786,25 @@ a {
     0 0 22px rgba(25, 227, 255, 0.08);
 }
 
+.affiliate-button-disabled {
+  cursor: not-allowed;
+  color: #d5dcef;
+  background:
+    linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.075),
+      rgba(123, 97, 255, 0.1)
+    );
+  border-color: rgba(255, 255, 255, 0.12);
+  opacity: 0.82;
+}
+
+.affiliate-button-disabled:hover {
+  transform: none;
+  border-color: rgba(255, 255, 255, 0.12);
+  box-shadow: none;
+}
+
 .affiliate-button span {
   font-size: 15px;
   font-weight: 900;
@@ -799,11 +818,30 @@ a {
   line-height: 1.55;
 }
 
+.affiliate-button em {
+  display: inline-flex;
+  width: fit-content;
+  margin-top: 10px;
+  padding: 5px 9px;
+  border-radius: 999px;
+  color: #19e3ff;
+  background: rgba(25, 227, 255, 0.08);
+  border: 1px solid rgba(25, 227, 255, 0.2);
+  font-size: 11px;
+  font-style: normal;
+  font-weight: 900;
+  letter-spacing: 0.04em;
+}
+
 .affiliate-disclosure {
   margin: 18px 0 0;
   color: #8f9bb0;
   font-size: 12px;
   line-height: 1.8;
+}
+
+.affiliate-disclosure-hidden {
+  display: none;
 }
 
 /* Related Sites */
