@@ -1,9 +1,9 @@
 const affiliateLinks = {
-  bto: "https://example.com/bto",
-  amazonParts: "https://example.com/amazon-parts",
-  rakutenParts: "https://example.com/rakuten-parts",
-  monitor: "https://example.com/monitor",
-  mouse: "https://example.com/mouse"
+  bto: "",
+  amazonParts: "",
+  rakutenParts: "",
+  monitor: "",
+  mouse: ""
 };
 
 window.affiliateLinks = affiliateLinks;
@@ -42,29 +42,50 @@ function createAffiliateSection() {
     }
   ];
 
-  return `
-    <section class="affiliate-section" aria-labelledby="affiliateTitle">
-      <div class="affiliate-heading">
-        <p class="section-label">SHOP LINKS</p>
-        <h2 id="affiliateTitle">\u304a\u3059\u3059\u3081\u8cfc\u5165\u5148</h2>
-        <p>\u5fc5\u8981\u306a\u30b9\u30da\u30c3\u30af\u3084\u5468\u8fba\u6a5f\u5668\u3092\u3001\u6c17\u306b\u306a\u3063\u305f\u30bf\u30a4\u30df\u30f3\u30b0\u3067\u8efd\u304f\u78ba\u8a8d\u3067\u304d\u307e\u3059\u3002</p>
-      </div>
+  const hasActiveAffiliateLink = links.some(link => Boolean(affiliateLinks[link.key]));
 
-      <div class="affiliate-link-grid">
-        ${links.map(link => `
+  function renderAffiliateButton(link) {
+    const affiliateUrl = affiliateLinks[link.key];
+
+    if (!affiliateUrl) {
+      return `
+          <span
+            class="affiliate-button affiliate-button-${link.key} affiliate-button-disabled"
+            aria-disabled="true"
+          >
+            <span>${link.label}</span>
+            <small>ショップ連携準備中</small>
+            <em>近日対応予定</em>
+          </span>
+      `;
+    }
+
+    return `
           <a
             class="affiliate-button affiliate-button-${link.key}"
-            href="${affiliateLinks[link.key]}"
+            href="${affiliateUrl}"
             target="_blank"
             rel="nofollow sponsored noopener noreferrer"
           >
             <span>${link.label}</span>
             <small>${link.description}</small>
           </a>
-        `).join("")}
+    `;
+  }
+
+  return `
+    <section class="affiliate-section" aria-labelledby="affiliateTitle">
+      <div class="affiliate-heading">
+        <p class="section-label">SHOP LINKS</p>
+        <h2 id="affiliateTitle">${hasActiveAffiliateLink ? "\u304a\u3059\u3059\u3081\u8cfc\u5165\u5148" : "\u30b7\u30e7\u30c3\u30d7\u9023\u643a\u6e96\u5099\u4e2d"}</h2>
+        <p>${hasActiveAffiliateLink ? "\u5fc5\u8981\u306a\u30b9\u30da\u30c3\u30af\u3084\u5468\u8fba\u6a5f\u5668\u3092\u3001\u6c17\u306b\u306a\u3063\u305f\u30bf\u30a4\u30df\u30f3\u30b0\u3067\u8efd\u304f\u78ba\u8a8d\u3067\u304d\u307e\u3059\u3002" : "\u73fe\u5728\u3001\u8ca9\u58f2\u30b5\u30a4\u30c8\u3078\u306e\u30ea\u30f3\u30af\u3092\u6e96\u5099\u3057\u3066\u3044\u307e\u3059\u3002\u516c\u958b\u5f8c\u306f\u3053\u306e\u30a8\u30ea\u30a2\u304b\u3089\u78ba\u8a8d\u3067\u304d\u307e\u3059\u3002"}</p>
       </div>
 
-      <p class="affiliate-disclosure">
+      <div class="affiliate-link-grid">
+        ${links.map(renderAffiliateButton).join("")}
+      </div>
+
+      <p class="affiliate-disclosure${hasActiveAffiliateLink ? "" : " affiliate-disclosure-hidden"}">
         \u5f53\u30b5\u30a4\u30c8\u3067\u306f\u30a2\u30d5\u30a3\u30ea\u30a8\u30a4\u30c8\u5e83\u544a\u3092\u5229\u7528\u3057\u3066\u3044\u307e\u3059\u3002\u30ea\u30f3\u30af\u5148\u3067\u5546\u54c1\u3092\u8cfc\u5165\u3059\u308b\u3068\u3001\u904b\u55b6\u8005\u306b\u53ce\u76ca\u304c\u767a\u751f\u3059\u308b\u5834\u5408\u304c\u3042\u308a\u307e\u3059\u3002
         Amazon\u306e\u30a2\u30bd\u30b7\u30a8\u30a4\u30c8\u3068\u3057\u3066\u3001\u5f53\u30b5\u30a4\u30c8\u306f\u9069\u683c\u8ca9\u58f2\u306b\u3088\u308a\u53ce\u5165\u3092\u5f97\u3066\u3044\u307e\u3059\u3002
       </p>
