@@ -302,6 +302,47 @@ a {
   font-weight: 800;
 }
 
+.static-game-links {
+  margin-top: 30px;
+  padding: 24px;
+  border-radius: 26px;
+  background:
+    linear-gradient(135deg, rgba(25, 227, 255, 0.1), rgba(124, 92, 255, 0.12)),
+    rgba(255, 255, 255, 0.035);
+  border: 1px solid rgba(255, 255, 255, 0.11);
+}
+
+.static-game-links h2 {
+  margin: 0 0 16px;
+  font-size: 24px;
+}
+
+.static-game-links div {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.static-game-links a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 38px;
+  padding: 8px 12px;
+  border-radius: 999px;
+  color: #dfe8ff;
+  text-decoration: none;
+  background: rgba(255, 255, 255, 0.07);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  font-size: 14px;
+  font-weight: 800;
+}
+
+.static-game-links a:hover {
+  color: #07111f;
+  background: #19e3ff;
+  border-color: rgba(25, 227, 255, 0.65);
+}
+
 .game-card {
   overflow: hidden;
   padding: 0;
@@ -537,6 +578,58 @@ a {
   line-height: 1.75;
 }
 
+.seo-guide-section {
+  margin-top: 34px;
+}
+
+.seo-guide-section .section-heading {
+  max-width: 940px;
+  margin-bottom: 18px;
+}
+
+.seo-guide-panel,
+.resolution-card {
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background:
+    radial-gradient(circle at top left, rgba(25, 227, 255, 0.15), transparent 34%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.09), rgba(255, 255, 255, 0.035));
+  box-shadow:
+    0 18px 40px rgba(0, 0, 0, 0.28),
+    inset 0 1px 0 rgba(255, 255, 255, 0.08);
+}
+
+.seo-guide-panel {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 18px;
+  padding: 24px;
+  border-radius: 26px;
+}
+
+.seo-guide-panel h3,
+.resolution-card h3 {
+  margin: 0 0 10px;
+  font-size: 21px;
+}
+
+.seo-guide-panel p,
+.resolution-card p {
+  margin: 0;
+  color: #cfd6e6;
+  line-height: 1.8;
+}
+
+.resolution-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+}
+
+.resolution-card {
+  padding: 24px;
+  border-radius: 26px;
+}
+
 .game-info-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -578,6 +671,8 @@ a {
 
 @media (max-width: 900px) {
   .build-grid,
+  .resolution-grid,
+  .seo-guide-panel,
   .game-info-grid {
     grid-template-columns: 1fr;
   }

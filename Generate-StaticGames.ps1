@@ -1,7 +1,7 @@
 ﻿$ErrorActionPreference = "Stop"
 
 $baseUrl = "https://sippo79.github.io/game-pc-guide"
-$today = "2026-05-25"
+$today = "2026-05-29"
 $root = Split-Path -Parent $MyInvocation.MyCommand.Path
 $gamesDir = Join-Path $root "games"
 $dataPath = Join-Path $root "data\games.json"
@@ -46,6 +46,105 @@ function Get-MetaDescription($game) {
   }
 }
 
+function Get-SpecText($game) {
+  switch ($game.level) {
+    "軽い" { return "$($game.title)は必要スペックが控えめなタイトルです。FHDならエントリー寄りのGPUでも遊びやすいですが、144fps以上を安定させたい場合はCPU性能とメモリ16GB以上を意識しましょう。" }
+    "軽め" { return "$($game.title)は比較的軽く、低予算PCでも始めやすいゲームです。高リフレッシュレート環境ではCPUの処理性能が効きやすいので、GPUだけを極端に強くするよりバランス重視がおすすめです。" }
+    "軽め〜中量級" { return "$($game.title)は設定次第で負荷が変わります。FHDならミドル手前のGPUで十分狙えますが、144fps以上やWQHDを考えるならCPUとGPUの両方に余裕を持たせると安定します。" }
+    "中量級" { return "$($game.title)は標準的なゲーミングPCなら遊びやすい一方、高画質や高fpsではGPU性能が必要になります。FHDを基準に、WQHDまで見据えるならミドルクラス以上を選ぶと安心です。" }
+    "中量級〜重め" { return "$($game.title)は場面や設定で負荷が上がりやすいタイトルです。FHDでも余裕のあるGPU、メモリ16GB以上、マルチプレイや長時間プレイを考えるなら32GBも候補に入ります。" }
+    "重め" { return "$($game.title)は軽いゲーム向けPCだと設定調整が必要になりやすいタイトルです。FHDでもミドルクラス以上のGPUを目安にし、重い場面でfpsを落としにくいCPUを組み合わせましょう。" }
+    "超重い" { return "$($game.title)はPCへの負荷がかなり高いゲームです。快適さを重視するならGPU性能を最優先にしつつ、CPU、メモリ、冷却にも余裕を持たせた構成が向いています。" }
+    default { return "$($game.title)を快適に遊ぶには、解像度、画質設定、目標fpsに合わせたPCスペック選びが大切です。まずはFHDで遊ぶのか、WQHDや4Kまで狙うのかを決めましょう。" }
+  }
+}
+
+function Get-ResolutionRows($game) {
+  switch ($game.level) {
+    "軽い" {
+      return @(
+        @{ label = "FHD"; text = "10万〜12万円前後の入門構成でも快適。144fps以上を狙うならCPUも少し余裕を持たせます。" },
+        @{ label = "WQHD"; text = "12万〜18万円前後が目安。画質よりfps安定を優先すると満足しやすいです。" },
+        @{ label = "4K"; text = "ゲーム自体は軽めでも4KはGPU負荷が増えます。優先度は低めで、配信や他ゲームも遊ぶ人向けです。" }
+      )
+    }
+    "軽め" {
+      return @(
+        @{ label = "FHD"; text = "12万円前後から狙いやすい解像度。144Hzモニターと組み合わせると体感が大きく変わります。" },
+        @{ label = "WQHD"; text = "16万〜20万円前後が目安。高fps重視ならCPUもミドル以上にしておくと安定します。" },
+        @{ label = "4K"; text = "画質目的なら可能ですが、競技性を重視するならFHD〜WQHDの高fps構成が現実的です。" }
+      )
+    }
+    "軽め〜中量級" {
+      return @(
+        @{ label = "FHD"; text = "12万〜18万円前後が目安。144fpsを狙うならミドル寄りのCPUとGPUが扱いやすいです。" },
+        @{ label = "WQHD"; text = "18万〜24万円前後が目安。画質とfpsを両立しやすく、長く使うならおすすめです。" },
+        @{ label = "4K"; text = "4K高画質は負荷が上がるため、画質重視なら上位GPU、fps重視ならWQHDまでが選びやすいです。" }
+      )
+    }
+    "中量級" {
+      return @(
+        @{ label = "FHD"; text = "15万円前後から快適に狙えます。高画質でも遊びやすく、初心者の基準にしやすい解像度です。" },
+        @{ label = "WQHD"; text = "20万〜25万円前後が目安。映像の綺麗さと快適さのバランスが良い構成です。" },
+        @{ label = "4K"; text = "4Kは上位GPU推奨。画質を上げるほどfpsが落ちやすいので、DLSSなどの支援機能も確認しましょう。" }
+      )
+    }
+    "中量級〜重め" {
+      return @(
+        @{ label = "FHD"; text = "15万〜20万円前後が現実的な入門ライン。重い場面に備えてメモリ容量にも余裕を持たせます。" },
+        @{ label = "WQHD"; text = "22万〜28万円前後が目安。高画質やマルチプレイまで考えるならこの帯が安心です。" },
+        @{ label = "4K"; text = "4KはかなりGPU依存になります。高画質で遊ぶならハイエンド寄りの構成を検討しましょう。" }
+      )
+    }
+    "重め" {
+      return @(
+        @{ label = "FHD"; text = "18万〜22万円前後が目安。画質調整を減らしたいならミドル以上のGPUを選びたいです。" },
+        @{ label = "WQHD"; text = "25万〜30万円前後が目安。高画質で遊ぶならGPU性能とVRAM容量を重視しましょう。" },
+        @{ label = "4K"; text = "4Kはハイエンド構成向け。最高設定にこだわるより、画質設定を調整してfpsを確保するのが現実的です。" }
+      )
+    }
+    "超重い" {
+      return @(
+        @{ label = "FHD"; text = "20万円台前半が最低ラインになりやすいです。画質調整前提でもGPU性能は妥協しすぎないようにします。" },
+        @{ label = "WQHD"; text = "30万円前後が目安。高画質で安定させるには上位GPUと余裕のあるCPUが欲しいところです。" },
+        @{ label = "4K"; text = "4K高画質はハイエンドPC向け。レイトレーシングや高設定を使うなら最上位クラスのGPUを検討しましょう。" }
+      )
+    }
+    default {
+      return @(
+        @{ label = "FHD"; text = "まずはFHDが選びやすい基準です。予算を抑えつつ快適さを確保しやすい解像度です。" },
+        @{ label = "WQHD"; text = "WQHDは画質と快適さのバランスが良く、少し余裕のあるゲーミングPCに向いています。" },
+        @{ label = "4K"; text = "4KはGPU負荷が高いため、予算と画質設定のバランスを見て選びましょう。" }
+      )
+    }
+  }
+}
+
+function Get-GpuText($game) {
+  switch ($game.level) {
+    "軽い" { return "$($game.title)だけなら高額GPUは必須ではありません。RTX 3050〜RTX 5050級を入口に、240Hz環境や配信も考えるならRTX 5060以上を目安にすると選びやすいです。" }
+    "軽め" { return "$($game.title)ではGPUを盛りすぎるより、CPUやモニターとのバランスが重要です。FHD中心ならRTX 5050〜RTX 5060級、余裕を見たいならRTX 5060 Ti以上が候補です。" }
+    "軽め〜中量級" { return "$($game.title)はFHD高fpsならRTX 5060級、WQHDも視野に入れるならRTX 5070級が扱いやすい目安です。4Kより高fpsを優先した方が快適に感じやすいです。" }
+    "中量級" { return "$($game.title)をFHD高画質で遊ぶならRTX 5060級、WQHDまで狙うならRTX 5070級が候補になります。VRAM容量も確認しておくと長く使いやすいです。" }
+    "中量級〜重め" { return "$($game.title)は負荷が上がる場面に備えてRTX 5060 Ti〜RTX 5070級を見ておくと安心です。拠点、マルチ、MOD要素がある場合はVRAMとメモリ容量も大切です。" }
+    "重め" { return "$($game.title)ではRTX 5060 Ti以上を入口に、WQHD高画質ならRTX 5070〜RTX 5070 Ti級が選びやすいです。GPU性能に余裕があるほど画質調整の幅が広がります。" }
+    "超重い" { return "$($game.title)はGPU性能が快適さに直結します。FHDでもRTX 5070級、WQHD〜4KではRTX 5080級以上を検討すると画質とfpsの両立がしやすくなります。" }
+    default { return "$($game.title)向けGPUは、FHDならミドルクラス、WQHD以上なら上位クラスを目安に選ぶと失敗しにくいです。" }
+  }
+}
+
+function Get-BeginnerText($game) {
+  switch ($game.genre) {
+    "FPS" { return "$($game.title)では平均fpsだけでなく、戦闘中にfpsが落ちにくいことも大切です。144Hz以上のモニターを使う場合は、PC本体だけでなくモニター設定と映像ケーブルも確認しましょう。" }
+    "TPS" { return "$($game.title)は戦闘中のエフェクトで負荷が上がることがあります。初めて選ぶなら最高設定前提にせず、少し設定を下げても安定する構成を選ぶと快適です。" }
+    "MMO" { return "$($game.title)は人が多い場所や大型コンテンツで負荷が変わります。普段は快適でも混雑時に重くなることがあるため、CPUとメモリにも余裕を持たせましょう。" }
+    "オープンワールド" { return "$($game.title)は広いマップの読み込みや高画質設定で負荷が増えます。ストレージはSSDを選び、MODや追加データを入れるなら容量にも余裕を持たせてください。" }
+    "サバイバル" { return "$($game.title)は建築量やマルチプレイ環境で重くなることがあります。長く遊ぶ予定なら、最初からメモリ32GBや余裕のあるCPUを選ぶのも堅実です。" }
+    "RPG" { return "$($game.title)は画質設定で体験が大きく変わります。高解像度を狙うほどGPU負荷が上がるため、予算内で無理に4Kを狙わずWQHDも候補に入れると選びやすいです。" }
+    default { return "$($game.title)用PCを選ぶときは、最低スペックだけで判断しないことが大切です。快適に遊ぶには推奨スペックより少し余裕のある構成を選びましょう。" }
+  }
+}
+
 function Get-DetailLead($game) {
   switch ($game.level) {
     "軽い" { return "$($game.title)はPCゲームの中では軽めですが、快適さを重視するならfpsの安定や入力遅延の少なさも大切です。" }
@@ -78,6 +177,10 @@ foreach ($game in $games) {
   $seoTitle = Get-SeoTitle $game
   $metaDescription = Get-MetaDescription $game
   $detailLead = Get-DetailLead $game
+  $specText = Get-SpecText $game
+  $gpuText = Get-GpuText $game
+  $beginnerText = Get-BeginnerText $game
+  $resolutionRows = Get-ResolutionRows $game
 
   $buildCards = foreach ($build in $game.builds) {
 @"
@@ -100,6 +203,16 @@ foreach ($game in $games) {
                 </li>
               </ul>
               <p class="build-comment">$(Escape-Html $build.comment)</p>
+            </article>
+"@
+  }
+
+  $resolutionCards = foreach ($row in $resolutionRows) {
+@"
+            <article class="resolution-card">
+              <p class="info-label">$(Escape-Html $row.label)</p>
+              <h3>$(Escape-Html $row.label)で遊ぶ場合</h3>
+              <p>$(Escape-Html $row.text)</p>
             </article>
 "@
   }
@@ -172,6 +285,55 @@ foreach ($game in $games) {
         <div class="build-grid">
 $($buildCards -join "`r`n")
         </div>
+
+        <section class="seo-guide-section" aria-labelledby="specTitle">
+          <div class="section-heading">
+            <p class="section-label">PC SPEC GUIDE</p>
+            <h2 id="specTitle">$(Escape-Html $game.title)に必要なPCスペック</h2>
+            <p>$(Escape-Html $specText)</p>
+          </div>
+
+          <div class="seo-guide-panel">
+            <div>
+              <p class="info-label">TARGET</p>
+              <h3>まず目標にしたい環境</h3>
+              <p>$(Escape-Html $game.recommended)</p>
+            </div>
+            <div>
+              <p class="info-label">BUDGET</p>
+              <h3>予算の目安</h3>
+              <p>$(Escape-Html $game.budget)</p>
+            </div>
+          </div>
+        </section>
+
+        <section class="seo-guide-section" aria-labelledby="resolutionTitle">
+          <div class="section-heading">
+            <p class="section-label">RESOLUTION</p>
+            <h2 id="resolutionTitle">FHD/WQHD/4K別のおすすめ構成</h2>
+            <p>$(Escape-Html $game.title)は解像度を上げるほどGPU負荷が増えます。迷ったらFHDでfps重視、映像の綺麗さも欲しいならWQHDを基準にすると選びやすいです。</p>
+          </div>
+
+          <div class="resolution-grid">
+$($resolutionCards -join "`r`n")
+          </div>
+        </section>
+
+        <section class="seo-guide-section" aria-labelledby="gpuTitle">
+          <div class="section-heading">
+            <p class="section-label">GPU GUIDE</p>
+            <h2 id="gpuTitle">GPU選びの目安</h2>
+            <p>$(Escape-Html $gpuText)</p>
+          </div>
+        </section>
+
+        <section class="seo-guide-section" aria-labelledby="beginnerCautionTitle">
+          <div class="section-heading">
+            <p class="section-label">BEGINNER NOTE</p>
+            <h2 id="beginnerCautionTitle">初心者向けの注意点</h2>
+            <p>$(Escape-Html $beginnerText)</p>
+          </div>
+        </section>
 
         <section class="affiliate-section" aria-labelledby="affiliateTitle">
           <div class="affiliate-heading">
