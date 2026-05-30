@@ -1,3 +1,55 @@
+// Filter state
+let currentFilter = 'all';
+
+function getGameFilterTags(game) {
+  const tags = ['all'];
+  if (game.popular) tags.push('popular');
+  if (game.genre === 'FPS' || game.genre === 'MOBA') tags.push('fps');
+  if (game.level && (game.level.includes('重め') || game.level.includes('超重い'))) tags.push('heavy');
+  return tags;
+}
+
+function renderFilterButtons() {
+  const filterArea = document.getElementById('gameFilter');
+  if (!filterArea) return;
+
+  const filters = [
+    { key: 'all', label: '全て' },
+    { key: 'popular', label: '人気' },
+    { key: 'fps', label: 'FPS' },
+    { key: 'heavy', label: '重量級' },
+  ];
+
+  filterArea.innerHTML = filters.map(f => `
+    <button class="filter-btn${currentFilter === f.key ? ' active' : ''}" data-filter="${f.key}">
+      ${f.label}
+    </button>
+  `).join('');
+
+  filterArea.querySelectorAll('.filter-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      currentFilter = btn.dataset.filter;
+      renderFilterButtons();
+      const keyword = gameSearchInput ? gameSearchInput.value.trim().toLowerCase() : '';
+      renderGames(applyFilters(allGames, currentFilter, keyword));
+    });
+  });
+}
+
+function applyFilters(games, filter, keyword) {
+  return games.filter(game => {
+    const tags = getGameFilterTags(game);
+    const matchFilter = tags.includes(filter);
+    const matchKeyword = !keyword || (
+      game.title.toLowerCase().includes(keyword) ||
+      game.genre.toLowerCase().includes(keyword) ||
+      game.level.toLowerCase().includes(keyword) ||
+      game.description.toLowerCase().includes(keyword)
+    );
+    return matchFilter && matchKeyword;
+  });
+}
+
 const affiliateLinks = {
   bto: "",
   amazonParts: "",
@@ -43,6 +95,8 @@ function createAffiliateSection() {
   ];
 
   const hasActiveAffiliateLink = links.some(link => Boolean(affiliateLinks[link.key]));
+
+  if (!hasActiveAffiliateLink) return '';
 
   function renderAffiliateButton(link) {
     const affiliateUrl = affiliateLinks[link.key];
@@ -111,6 +165,7 @@ async function loadGames() {
     const games = await response.json();
 
     allGames = games;
+    renderFilterButtons();
     renderGames(allGames);
   } catch (error) {
     console.error("Failed to load games.json", error);
@@ -157,6 +212,7 @@ function renderGames(games) {
       </div>
 
       <div class="game-card-body">
+        ${game.popular ? '<p class="game-popular-badge">\u4eba\u6c17</p>' : ''}
         <div class="game-card-top">
           <span class="game-tag">${game.genre}</span>
           <span class="game-level">${game.level}</span>
@@ -172,18 +228,8 @@ function renderGames(games) {
 }
 
 function filterGames() {
-  const keyword = gameSearchInput.value.trim().toLowerCase();
-
-  const filteredGames = allGames.filter(game => {
-    return (
-      game.title.toLowerCase().includes(keyword) ||
-      game.genre.toLowerCase().includes(keyword) ||
-      game.level.toLowerCase().includes(keyword) ||
-      game.description.toLowerCase().includes(keyword)
-    );
-  });
-
-  renderGames(filteredGames);
+  const keyword = gameSearchInput ? gameSearchInput.value.trim().toLowerCase() : '';
+  renderGames(applyFilters(allGames, currentFilter, keyword));
 }
 
 if (gameSearchInput) {

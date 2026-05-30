@@ -75,6 +75,16 @@ a {
   background: rgba(255, 255, 255, 0.08);
 }
 
+.header-link-ext {
+  color: #19e3ff;
+  border: 1px solid rgba(25, 227, 255, 0.28);
+}
+
+.header-link-ext:hover {
+  background: rgba(25, 227, 255, 0.1);
+  border-color: rgba(25, 227, 255, 0.5);
+}
+
 /* Hero */
 
 .hero {
@@ -170,9 +180,11 @@ a {
   letter-spacing: 0.08em;
 }
 
-.hero-card h2 {
+.hero-card-title {
   margin: 0 0 22px;
   font-size: 26px;
+  font-weight: 900;
+  color: #f5f7fb;
 }
 
 .hero-check-list {
@@ -229,6 +241,60 @@ a {
   margin: 0;
   color: #cfd6e6;
   line-height: 1.8;
+}
+
+/* Game Filter */
+
+.game-filter {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 20px;
+}
+
+.filter-btn {
+  display: inline-flex;
+  align-items: center;
+  min-height: 38px;
+  padding: 0 16px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: rgba(255, 255, 255, 0.055);
+  color: #cfd6e6;
+  font-size: 14px;
+  font-weight: 800;
+  cursor: pointer;
+  transition: 0.18s ease;
+  font-family: inherit;
+}
+
+.filter-btn:hover {
+  border-color: rgba(25, 227, 255, 0.4);
+  color: #19e3ff;
+  background: rgba(25, 227, 255, 0.06);
+}
+
+.filter-btn.active {
+  background: linear-gradient(135deg, rgba(25, 227, 255, 0.22), rgba(123, 97, 255, 0.22));
+  border-color: rgba(25, 227, 255, 0.5);
+  color: #ffffff;
+}
+
+/* Popular badge on game cards */
+
+.game-popular-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  min-height: 22px;
+  padding: 0 9px;
+  border-radius: 999px;
+  background: linear-gradient(135deg, #19e3ff, #7b61ff);
+  color: #07111f;
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: 0.04em;
+  margin-bottom: 8px;
 }
 
 /* Game Cards */
@@ -462,6 +528,16 @@ a {
     font-size: 12px;
   }
 
+  .filter-btn {
+    min-height: 42px;
+    padding: 0 14px;
+    font-size: 13px;
+  }
+
+  .game-popular-badge {
+    font-size: 10px;
+  }
+
   .hero-card,
   .game-card,
   .guide-card {
@@ -576,6 +652,35 @@ a {
   margin: 18px 0 0;
   color: #cfd6e6;
   line-height: 1.75;
+}
+
+/* "迷ったらこの構成" recommended highlight */
+
+.build-card-recommended {
+  border-color: rgba(25, 227, 255, 0.45);
+  box-shadow:
+    0 22px 70px rgba(0, 0, 0, 0.28),
+    0 0 32px rgba(25, 227, 255, 0.1);
+}
+
+.build-recommended-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin: 0 0 16px;
+  padding: 7px 14px;
+  border-radius: 999px;
+  background: linear-gradient(135deg, rgba(25, 227, 255, 0.18), rgba(123, 97, 255, 0.18));
+  border: 1px solid rgba(25, 227, 255, 0.4);
+  color: #19e3ff;
+  font-size: 13px;
+  font-weight: 900;
+  letter-spacing: 0.04em;
+}
+
+.build-recommended-badge::before {
+  content: "★";
+  font-size: 12px;
 }
 
 .seo-guide-section {
@@ -939,6 +1044,23 @@ a {
   display: none;
 }
 
+/* Hide affiliate section when all buttons are pending (no active links) */
+.affiliate-section:not(:has(.affiliate-button:not(.affiliate-button-disabled))) {
+  display: none;
+}
+
+/* "他のゲームを見る" bottom nav */
+.detail-back-nav {
+  margin-top: 24px;
+  text-align: center;
+}
+
+.detail-back-nav .secondary-btn {
+  display: inline-flex;
+  padding: 0 28px;
+  font-size: 15px;
+}
+
 /* Related Sites */
 
 .related-sites-section {
@@ -948,9 +1070,9 @@ a {
 
 .related-site-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(2, 1fr);
   gap: 24px;
-  max-width: 1320px;
+  max-width: 960px;
   margin: 0 auto;
 }
 
