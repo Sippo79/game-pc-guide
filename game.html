@@ -34,13 +34,15 @@
       <nav class="header-nav">
         <a href="index.html#games" class="header-link">ゲーム一覧</a>
         <a href="index.html#beginner" class="header-link">初心者向け</a>
+        <a href="https://sippo79.github.io/gpu-guide/" class="header-link header-link-ext" target="_blank" rel="noopener noreferrer">GPU比較</a>
+        <a href="https://sippo79.github.io/pc-build-check/" class="header-link header-link-ext" target="_blank" rel="noopener noreferrer">PC診断</a>
       </nav>
     </div>
   </header>
 
   <main>
 <section class="game-detail-hero">
-    <img id="gameImage" src="" alt="">
+    <img id="gameImage" src="" alt="" loading="eager" decoding="async">
 
   <div class="container">
     <a href="index.html#games" class="back-link">
@@ -120,6 +122,10 @@
               <small>GPU性能や用途別の目安を比較</small>
             </a>
           </div>
+
+          <div class="detail-back-nav">
+            <a href="index.html#games" class="secondary-btn">← 他のゲームを見る</a>
+          </div>
         </div>
       </div>
     </section>
@@ -133,5 +139,13 @@
 
   <script src="script.js"></script>
   <script src="game.js"></script>
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/game-pc-guide/sw.js', { scope: '/game-pc-guide/' })
+          .catch(() => {});
+      });
+    }
+  </script>
 </body>
 </html>
