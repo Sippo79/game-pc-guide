@@ -2,6 +2,7 @@
   {
     "id": "apex",
     "title": "APEX Legends",
+    "popular": true,
     "genre": "FPS",
     "level": "軽め〜中量級",
     "image": "images/apex.jpg",
@@ -32,6 +33,7 @@
   {
     "id": "valorant",
     "title": "VALORANT",
+    "popular": true,
     "genre": "FPS",
     "level": "軽め",
     "image": "images/valorant.jpg",
@@ -62,6 +64,7 @@
   {
     "id": "ff14",
     "title": "FINAL FANTASY XIV",
+    "popular": true,
     "genre": "MMO",
     "level": "中量級",
     "image": "images/ff14.jpg",
@@ -92,6 +95,7 @@
   {
     "id": "mhwilds",
     "title": "モンハンワイルズ",
+    "popular": true,
     "genre": "アクション",
     "level": "重め",
     "image": "images/mhwilds.jpg",
@@ -182,6 +186,7 @@
 {
   "id": "fortnite",
   "title": "Fortnite",
+  "popular": true,
   "genre": "FPS",
   "level": "軽め〜中量級",
   "image": "images/fortnite.jpg",
@@ -212,6 +217,7 @@
 {
   "id": "minecraft",
   "title": "Minecraft",
+  "popular": true,
   "genre": "サンドボックス",
   "level": "軽め",
   "image": "images/minecraft.jpg",
@@ -392,6 +398,7 @@
 {
   "id": "genshin",
   "title": "原神",
+  "popular": true,
   "genre": "オープンワールド",
   "level": "軽め〜中量級",
   "image": "images/genshin.jpg",
@@ -422,6 +429,7 @@
 {
   "id": "lol",
   "title": "League of Legends",
+  "popular": true,
   "genre": "MOBA",
   "level": "軽い",
   "image": "images/lol.jpg",
@@ -452,6 +460,7 @@
 {
   "id": "overwatch2",
   "title": "Overwatch 2",
+  "popular": true,
   "genre": "FPS",
   "level": "軽め〜中量級",
   "image": "images/overwatch2.jpg",

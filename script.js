@@ -159,7 +159,24 @@ function renderAffiliateSection(targetId) {
 
 window.renderAffiliateSection = renderAffiliateSection;
 
+function showSkeletonCards(count = 6) {
+  const skeletons = Array.from({ length: count }, () => `
+    <div class="skeleton-card">
+      <div class="skeleton-thumb"></div>
+      <div class="skeleton-body">
+        <div class="skeleton-line short"></div>
+        <div class="skeleton-line"></div>
+        <div class="skeleton-line mid"></div>
+        <div class="skeleton-line short"></div>
+      </div>
+    </div>
+  `).join('');
+  gameGrid.innerHTML = skeletons;
+}
+
 async function loadGames() {
+  showSkeletonCards();
+
   try {
     const response = await fetch("./data/games.json");
     const games = await response.json();
@@ -200,6 +217,8 @@ function renderGames(games) {
             <img
               src="${game.image}"
               alt="${game.title}"
+              loading="lazy"
+              decoding="async"
               onerror="this.parentElement.innerHTML='<div class=&quot;game-thumb-placeholder&quot;><span>${game.genre}</span></div>'"
             >
           `

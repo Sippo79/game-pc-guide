@@ -1,3 +1,21 @@
+/* === Design Tokens === */
+:root {
+  --cyan: #19e3ff;
+  --purple: #7b61ff;
+  --bg: #090b14;
+  --text: #f5f7fb;
+  --text-muted: #cfd6e6;
+  --text-dim: #9aa7bd;
+  --glass: rgba(255, 255, 255, 0.095);
+  --glass-border: rgba(255, 255, 255, 0.11);
+  --cyan-glow: rgba(25, 227, 255, 0.18);
+  --purple-glow: rgba(123, 97, 255, 0.18);
+  --radius-card: 26px;
+  --radius-pill: 999px;
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
+  --safe-top: env(safe-area-inset-top, 0px);
+}
+
 * {
   box-sizing: border-box;
 }
@@ -9,15 +27,76 @@ html {
 body {
   margin: 0;
   font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  color: #f5f7fb;
+  color: var(--text);
 
   background:
     radial-gradient(circle at top left, rgba(25, 227, 255, 0.14), transparent 28%),
     radial-gradient(circle at bottom right, rgba(123, 97, 255, 0.14), transparent 28%),
-    #090b14;
+    var(--bg);
 
   background-attachment: fixed;
+  /* iOS safe area bottom padding */
+  padding-bottom: var(--safe-bottom);
 }
+
+/* Page entry animation */
+@keyframes pageIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+main {
+  animation: pageIn 0.32s ease both;
+}
+
+/* Skeleton loading */
+@keyframes shimmer {
+  0%   { background-position: -400px 0; }
+  100% { background-position: 400px 0; }
+}
+
+.skeleton-card {
+  border-radius: var(--radius-card);
+  overflow: hidden;
+  background: var(--glass);
+  border: 1px solid var(--glass-border);
+}
+
+.skeleton-thumb {
+  height: 150px;
+  background: linear-gradient(90deg,
+    rgba(255,255,255,0.06) 25%,
+    rgba(255,255,255,0.12) 50%,
+    rgba(255,255,255,0.06) 75%
+  );
+  background-size: 800px 100%;
+  animation: shimmer 1.4s infinite;
+}
+
+.skeleton-body {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.skeleton-line {
+  height: 14px;
+  border-radius: 6px;
+  background: linear-gradient(90deg,
+    rgba(255,255,255,0.06) 25%,
+    rgba(255,255,255,0.12) 50%,
+    rgba(255,255,255,0.06) 75%
+  );
+  background-size: 800px 100%;
+  animation: shimmer 1.4s infinite;
+}
+
+.skeleton-line.short { width: 40%; }
+.skeleton-line.mid   { width: 65%; }
+
+/* Tap highlight reset for mobile */
+a, button { -webkit-tap-highlight-color: transparent; }
 
 a {
   color: inherit;
@@ -35,9 +114,11 @@ a {
   position: sticky;
   top: 0;
   z-index: 10;
-  background: rgba(9, 11, 20, 0.84);
-  backdrop-filter: blur(14px);
+  background: rgba(9, 11, 20, 0.88);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
   border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  padding-top: var(--safe-top);
 }
 
 .header-inner {
@@ -324,6 +405,15 @@ a {
     0 0 28px rgba(25, 227, 255, 0.08);
 }
 
+/* Mobile tap active state */
+@media (hover: none) {
+  .game-card:active {
+    transform: scale(0.97);
+    border-color: rgba(25, 227, 255, 0.38);
+    transition: 0.1s ease;
+  }
+}
+
 .game-card-top {
   display: flex;
   justify-content: space-between;
@@ -470,8 +560,8 @@ a {
 /* Footer */
 
 .site-footer {
-  padding: 34px 0;
-  color: #9aa7bd;
+  padding: 34px 0 calc(34px + var(--safe-bottom));
+  color: var(--text-dim);
   border-top: 1px solid rgba(255, 255, 255, 0.08);
 }
 
@@ -479,17 +569,22 @@ a {
 
 @media (max-width: 900px) {
   .hero-inner,
-  .game-grid,
   .guide-grid {
     grid-template-columns: 1fr;
   }
 
+  /* 2-column game cards on tablet/large mobile */
+  .game-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+
   .hero {
-    padding: 56px 0;
+    padding: 48px 0 40px;
   }
 
   .hero h1 {
-    font-size: clamp(38px, 12vw, 54px);
+    font-size: clamp(36px, 10vw, 54px);
   }
 
   .hero-actions {
@@ -506,36 +601,81 @@ a {
   }
 }
 
+@media (max-width: 480px) {
+  /* Single column on small phones */
+  .game-grid {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+}
+
 @media (max-width: 520px) {
   .container {
-    width: min(100% - 24px, 1120px);
+    width: min(100% - 20px, 1120px);
   }
 
   .header-inner {
-    height: 60px;
+    height: 56px;
   }
 
   .site-logo {
-    font-size: 15px;
+    font-size: 14px;
   }
 
   .header-nav {
-    gap: 4px;
+    gap: 3px;
   }
 
   .header-link {
-    padding: 8px 9px;
-    font-size: 12px;
+    padding: 8px 8px;
+    font-size: 11px;
   }
 
   .filter-btn {
-    min-height: 42px;
+    min-height: 44px;
     padding: 0 14px;
     font-size: 13px;
   }
 
   .game-popular-badge {
     font-size: 10px;
+  }
+
+  /* Larger tap targets on mobile */
+  .primary-btn,
+  .secondary-btn {
+    min-height: 54px;
+    font-size: 16px;
+  }
+
+  .game-search input {
+    min-height: 50px;
+    font-size: 16px; /* prevents iOS zoom on focus */
+  }
+
+  .section-heading h2 {
+    font-size: 26px;
+  }
+
+  .hero-text {
+    font-size: 15px;
+  }
+
+  .game-card-body {
+    padding: 16px;
+  }
+
+  .game-card h3 {
+    font-size: 18px;
+  }
+
+  .game-card p {
+    font-size: 13px;
+    margin-bottom: 14px;
+  }
+
+  .game-thumb {
+    height: 120px;
   }
 
   .hero-card,
@@ -787,14 +927,35 @@ a {
   }
 
   .game-detail-hero {
-    padding: 32px 0 24px;
+    padding: 28px 0 20px;
   }
 
   .game-detail-hero > img {
     width: calc(100% - 24px);
     height: calc(56.25vw - 13.5px);
-    margin-bottom: 26px;
-    border-radius: 22px;
+    margin-bottom: 22px;
+    border-radius: 18px;
+  }
+
+  .build-card {
+    padding: 20px;
+  }
+
+  .game-detail-hero h1 {
+    font-size: clamp(28px, 8vw, 48px);
+  }
+}
+
+@media (max-width: 520px) {
+  .game-detail-hero > img {
+    width: 100%;
+    border-radius: 0;
+    margin-bottom: 0;
+  }
+
+  .back-link {
+    margin-top: 16px;
+    font-size: 14px;
   }
 }
 /* Detail Info Cards */

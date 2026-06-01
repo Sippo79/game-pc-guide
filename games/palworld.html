@@ -15,6 +15,15 @@
   <meta property="og:url" content="https://sippo79.github.io/game-pc-guide/games/palworld.html" />
   <meta name="twitter:card" content="summary_large_image" />
 
+  <!-- PWA -->
+  <link rel="manifest" href="../manifest.json" />
+  <meta name="theme-color" content="#090b14" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="GAME PC" />
+  <link rel="apple-touch-icon" href="../images/favicon.png" />
+
   <link rel="stylesheet" href="../style.css" />
   <link rel="icon" type="image/png" href="../images/favicon.png" />
 </head>
@@ -29,13 +38,15 @@
       <nav class="header-nav">
         <a href="../index.html#games" class="header-link">ゲーム一覧</a>
         <a href="../index.html#beginner" class="header-link">初心者向け</a>
+        <a href="https://sippo79.github.io/gpu-guide/" class="header-link header-link-ext" target="_blank" rel="noopener noreferrer">GPU比較</a>
+        <a href="https://sippo79.github.io/pc-build-check/" class="header-link header-link-ext" target="_blank" rel="noopener noreferrer">PC診断</a>
       </nav>
     </div>
   </header>
 
   <main>
     <section class="game-detail-hero">
-      <img src="../images/palworld.jpg" alt="Palworld" />
+      <img src="../images/palworld.jpg" alt="Palworld" loading="eager" decoding="async" />
 
       <div class="container">
         <a href="../index.html#games" class="back-link">
@@ -104,6 +115,69 @@
               <p class="build-comment">マルチプレイや拠点拡張も考えて、余裕を持たせたい人向けです。</p>
             </article>
         </div>
+
+        <section class="seo-guide-section" aria-labelledby="specTitle">
+          <div class="section-heading">
+            <p class="section-label">PC SPEC GUIDE</p>
+            <h2 id="specTitle">Palworldに必要なPCスペック</h2>
+            <p>Palworldは場面や設定で負荷が上がりやすいタイトルです。FHDでも余裕のあるGPU、メモリ16GB以上、マルチプレイや長時間プレイを考えるなら32GBも候補に入ります。</p>
+          </div>
+
+          <div class="seo-guide-panel">
+            <div>
+              <p class="info-label">TARGET</p>
+              <h3>まず目標にしたい環境</h3>
+              <p>FHD〜WQHD / 快適</p>
+            </div>
+            <div>
+              <p class="info-label">BUDGET</p>
+              <h3>予算の目安</h3>
+              <p>15万〜25万円前後</p>
+            </div>
+          </div>
+        </section>
+
+        <section class="seo-guide-section" aria-labelledby="resolutionTitle">
+          <div class="section-heading">
+            <p class="section-label">RESOLUTION</p>
+            <h2 id="resolutionTitle">FHD/WQHD/4K別のおすすめ構成</h2>
+            <p>Palworldは解像度を上げるほどGPU負荷が増えます。迷ったらFHDでfps重視、映像の綺麗さも欲しいならWQHDを基準にすると選びやすいです。</p>
+          </div>
+
+          <div class="resolution-grid">
+            <article class="resolution-card">
+              <p class="info-label">FHD</p>
+              <h3>FHDで遊ぶ場合</h3>
+              <p>15万〜20万円前後が現実的な入門ライン。重い場面に備えてメモリ容量にも余裕を持たせます。</p>
+            </article>
+            <article class="resolution-card">
+              <p class="info-label">WQHD</p>
+              <h3>WQHDで遊ぶ場合</h3>
+              <p>22万〜28万円前後が目安。高画質やマルチプレイまで考えるならこの帯が安心です。</p>
+            </article>
+            <article class="resolution-card">
+              <p class="info-label">4K</p>
+              <h3>4Kで遊ぶ場合</h3>
+              <p>4KはかなりGPU依存になります。高画質で遊ぶならハイエンド寄りの構成を検討しましょう。</p>
+            </article>
+          </div>
+        </section>
+
+        <section class="seo-guide-section" aria-labelledby="gpuTitle">
+          <div class="section-heading">
+            <p class="section-label">GPU GUIDE</p>
+            <h2 id="gpuTitle">GPU選びの目安</h2>
+            <p>Palworldは負荷が上がる場面に備えてRTX 5060 Ti〜RTX 5070級を見ておくと安心です。拠点、マルチ、MOD要素がある場合はVRAMとメモリ容量も大切です。</p>
+          </div>
+        </section>
+
+        <section class="seo-guide-section" aria-labelledby="beginnerCautionTitle">
+          <div class="section-heading">
+            <p class="section-label">BEGINNER NOTE</p>
+            <h2 id="beginnerCautionTitle">初心者向けの注意点</h2>
+            <p>Palworldは建築量やマルチプレイ環境で重くなることがあります。長く遊ぶ予定なら、最初からメモリ32GBや余裕のあるCPUを選ぶのも堅実です。</p>
+          </div>
+        </section>
 
         <section class="affiliate-section" aria-labelledby="affiliateTitle">
           <div class="affiliate-heading">
@@ -191,6 +265,10 @@
               <small>GPU性能や用途別の目安を比較</small>
             </a>
           </div>
+
+          <div class="detail-back-nav">
+            <a href="../index.html#games" class="secondary-btn">← 他のゲームを見る</a>
+          </div>
         </div>
       </div>
     </section>
@@ -201,5 +279,13 @@
       <p>© GAME PC GUIDE</p>
     </div>
   </footer>
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/game-pc-guide/sw.js', { scope: '/game-pc-guide/' })
+          .catch(() => {});
+      });
+    }
+  </script>
 </body>
 </html>

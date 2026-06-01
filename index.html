@@ -19,6 +19,15 @@
   <meta name="twitter:image" content="https://sippo79.github.io/game-pc-guide/images/ogp.jpg" />
   <link rel="canonical" href="https://sippo79.github.io/game-pc-guide/" />
 
+  <!-- PWA -->
+  <link rel="manifest" href="manifest.json" />
+  <meta name="theme-color" content="#090b14" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="GAME PC" />
+  <link rel="apple-touch-icon" href="images/favicon.png" />
+
   <link rel="stylesheet" href="style.css" />
   <link rel="icon" type="image/png" href="images/favicon.png" />
   <meta name="google-site-verification" content="iEArXLgT91h_EASB76ODMIgekaYdL2hvQMA-KuQCTS0" />
@@ -199,5 +208,13 @@
   </footer>
 
   <script src="script.js"></script>
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/game-pc-guide/sw.js', { scope: '/game-pc-guide/' })
+          .catch(() => {});
+      });
+    }
+  </script>
 </body>
 </html>
